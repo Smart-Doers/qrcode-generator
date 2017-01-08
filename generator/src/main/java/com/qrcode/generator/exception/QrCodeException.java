@@ -2,6 +2,7 @@ package com.qrcode.generator.exception;
 
 /**
  * Created by grijesh on 7/1/17.
+ *
  */
 public class QrCodeException extends RuntimeException {
 

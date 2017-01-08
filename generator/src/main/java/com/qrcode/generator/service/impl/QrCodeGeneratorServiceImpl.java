@@ -37,7 +37,7 @@ public class QrCodeGeneratorServiceImpl implements QrCodeGeneratorService {
             return "data:image/png;base64," +
                     DatatypeConverter.printBase64Binary(IOUtils.toByteArray(inputStream));
         } catch (WriterException | IOException e) {
-            throw new QrCodeException(e.getMessage(), e);
+            throw new QrCodeException("Exception in Generating QrCode Base64 String", e);
         }
     }
 
@@ -46,7 +46,7 @@ public class QrCodeGeneratorServiceImpl implements QrCodeGeneratorService {
         try {
             return createQrCodeStream(qrCode);
         } catch (WriterException | IOException e) {
-            throw new QrCodeException(e.getMessage(), e);
+            throw new QrCodeException("Exception in Generating QrCode Stream", e);
         }
     }
 
