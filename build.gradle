@@ -1,0 +1,26 @@
+allprojects {
+    group 'com.qrcode.generator'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
+
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
+    apply plugin: 'maven'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+    }
+
+    ext.libs= [
+            bdd:[ 'junit:junit:4.11',
+                  'info.cukes:cucumber-java:1.2.4',
+                  'info.cukes:cucumber-junit:1.2.4',
+                  'org.testinfected.hamcrest-matchers:core-matchers:1.5'
+            ]
+    ]
+}
