@@ -14,8 +14,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
-    }
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: spring_boot_version    }
 }
 
 
@@ -23,6 +22,6 @@ dependencies {
     compile project(':generator')
     compile project(':swagger')
 
-    compile("org.springframework.boot:spring-boot-starter-web:1.4.3.RELEASE")
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group:'org.springframework.boot', name:'spring-boot-starter-web', version:spring_boot_version
+    testCompile group: 'junit', name: 'junit', version: junit_version
 }
