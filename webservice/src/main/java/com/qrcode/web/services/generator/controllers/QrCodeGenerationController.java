@@ -26,6 +26,7 @@ import static com.qrcode.web.services.generator.converters.QrCodeModelConverter.
 
 @RestController
 @RequestMapping("/qrcode")
+@SuppressWarnings("unused")
 public class QrCodeGenerationController {
 
     @Autowired
@@ -51,7 +52,7 @@ public class QrCodeGenerationController {
             InputStream inputStream = qrCodeGeneratorService.getQrCodeStream(qrCode);
             resource = new InputStreamResource(inputStream);
         } catch (QrCodeException e) {
-            return new ResponseEntity<InputStreamResource>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
