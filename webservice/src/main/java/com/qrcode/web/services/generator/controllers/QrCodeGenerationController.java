@@ -24,7 +24,6 @@ import static com.qrcode.web.services.generator.converters.QrCodeModelConverter.
  * Created by grijesh on 7/1/17.
  *
  */
-
 @RestController
 @RequestMapping("/qrcode")
 @SuppressWarnings("unused")
