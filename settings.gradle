@@ -3,4 +3,5 @@ include 'generator'
 include 'functional-tests'
 include 'webservice'
 include 'swagger'
+include 'docker'
 
