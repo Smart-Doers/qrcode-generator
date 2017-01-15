@@ -3,8 +3,9 @@ package com.qrcode.web.services.generator.controllers;
 import com.qrcode.generator.exception.QrCodeException;
 import com.qrcode.generator.model.QrCode;
 import com.qrcode.generator.service.QrCodeGeneratorService;
-import com.qrcode.web.services.generator.model.Pillar;
 import com.qrcode.web.services.generator.model.PillarQrCodeInformation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
@@ -23,13 +24,14 @@ import static com.qrcode.web.services.generator.converters.QrCodeModelConverter.
  * Created by grijesh on 7/1/17.
  *
  */
-
 @RestController
 @RequestMapping("/qrcode")
+@SuppressWarnings("unused")
 public class QrCodeGenerationController {
 
     @Autowired
     private QrCodeGeneratorService qrCodeGeneratorService;
+    private static transient Logger logger = LoggerFactory.getLogger(QrCodeGenerationController.class);
 
     @RequestMapping(value = "/base64", method = RequestMethod.POST)
     public ResponseEntity<String> getQrCodeBase64(@RequestBody PillarQrCodeInformation pillar) {
@@ -51,7 +53,7 @@ public class QrCodeGenerationController {
             InputStream inputStream = qrCodeGeneratorService.getQrCodeStream(qrCode);
             resource = new InputStreamResource(inputStream);
         } catch (QrCodeException e) {
-            return new ResponseEntity<InputStreamResource>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
