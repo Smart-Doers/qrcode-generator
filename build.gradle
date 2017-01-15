@@ -16,12 +16,4 @@ allprojects {
         testCompile group: 'junit', name: 'junit', version: junit_version
     }
 
-    ext.libs= [
-            bdd:[ 'junit:junit:4.11',
-                  'info.cukes:cucumber-java:1.2.4',
-                  'info.cukes:cucumber-junit:1.2.4',
-                  'org.testinfected.hamcrest-matchers:core-matchers:1.5'
-            ]
-    ]
-
 }
