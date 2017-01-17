@@ -1,0 +1,47 @@
+group 'com.qrcode.generator'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    ext {
+        springBootVersion = '1.4.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'docker'
+apply plugin: 'spring-boot'
+
+dependencies {
+    compile project(':webservice')
+}
+
+jar {
+    baseName = "qrcode-generator-docker"
+}
+
+bootRepackage {
+    mainClass = 'com.qrcode.web.services.generator.Application'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
