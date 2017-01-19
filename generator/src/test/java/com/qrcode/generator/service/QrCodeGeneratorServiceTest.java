@@ -1,15 +1,14 @@
 package com.qrcode.generator.service;
 
-import com.qrcode.generator.exception.QrCodeException;
 import com.qrcode.generator.model.QrCode;
 import com.qrcode.generator.service.impl.QrCodeGeneratorServiceImpl;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 /**
@@ -20,31 +19,28 @@ public class QrCodeGeneratorServiceTest {
 
     QrCodeGeneratorService service;
 
-    @Before
+    @BeforeEach
     public void setup() {
         service = new QrCodeGeneratorServiceImpl();
     }
 
     @Test
-    public void should_return_base64_qrCode() {
+    @DisplayName("Should return Base64 binary string version of QR-Code")
+    void should_return_base64_qrCode() {
         //Given
         String information = "Hello World";
         QrCode qrCode = new QrCode(information, 40, 40);
 
         //When
-        String base64QrCode = null;
-        try {
-            base64QrCode = service.getBase64QrCode(qrCode);
-        } catch (QrCodeException e) {
-            fail();
-        }
+        String base64QrCode = service.getBase64QrCode(qrCode);
 
         //Then
-        assertNotNull(base64QrCode);
+        assertNotNull(base64QrCode, "QR code should not be null");
     }
 
     @Test
-    public void should_return_stream() {
+    @DisplayName("Should return Qr-Code Stream")
+    void should_return_stream() {
         //Given
         String information = "Hello World";
         QrCode qrCode = new QrCode(information, 40, 40);
@@ -53,6 +49,6 @@ public class QrCodeGeneratorServiceTest {
         InputStream inputStream = service.getQrCodeStream(qrCode);
 
         //Then
-        assertNotNull(inputStream);
+        assertNotNull(inputStream, () -> "Stream should not be empty");
     }
 }

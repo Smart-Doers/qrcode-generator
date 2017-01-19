@@ -11,3 +11,5 @@
 
 ###To run the docker image, please run below command
 docker run -p 8080:8080 IMAGE_ID
+
+###We are using Junit-5, Please upgrade intellij to 2016.3.3+ version.
