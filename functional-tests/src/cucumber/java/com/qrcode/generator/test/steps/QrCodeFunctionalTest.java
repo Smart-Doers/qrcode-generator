@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -27,6 +28,9 @@ public class QrCodeFunctionalTest {
     private static final Logger logger = LoggerFactory.getLogger(QrCodeFunctionalTest.class);
     private PillarQrCodeInformation pillarQrCodeInformation;
     private String base64String;
+    private InputStreamResource streamResource;
+
+
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -51,13 +55,11 @@ public class QrCodeFunctionalTest {
 
     @When("^I hit the webservice with above details$")
     public void i_hit_the_webservice_with_above_details() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
             this.base64String = restTemplate.postForObject("/qrcode/base64", pillarQrCodeInformation, String.class);
     }
 
     @Then("^Result should be \"([^\"]*)\"$")
     public void result_should_be(String result) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
         Assert.assertTrue(base64String.equals(result));
     }
 
@@ -68,4 +70,13 @@ public class QrCodeFunctionalTest {
         Assert.assertTrue(String.valueOf(apiResponse.get("message")).equalsIgnoreCase(result));
     }
 
+    @When("^I hit the stream webservice with above details$")
+    public void i_hit_the_stream_webservice_with_above_details() throws Throwable {
+        streamResource = restTemplate.postForObject("/qrcode/image", pillarQrCodeInformation, InputStreamResource.class);
+    }
+
+    @Then("^Result should not be null$")
+    public void result_should_not_be_null() throws Throwable {
+        Assert.assertNotNull(streamResource);
+    }
 }
